@@ -12,11 +12,11 @@ class DeskController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
-        return DeskResource::collection(Desk::all()); //вывод всего через колекцию
+        return DeskResource::collection(Desk::with('lists')->get()); //вывод всего через колекцию
     }
 
     /**
@@ -38,7 +38,7 @@ class DeskController extends Controller
      */
     public function show($id)
     {
-        return new DeskResource(Desk::findOrFail($id));
+        return new DeskResource(Desk::with('lists')->findOrFail($id));
     }
 
     /**
